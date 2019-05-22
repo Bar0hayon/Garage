@@ -8,15 +8,13 @@ namespace Ex03.GarageLogic
     {
         protected float m_EnergyLeft;
         protected float m_MaxEnergy;
-        protected float m_MinEnergy;
+        protected float m_MinEnergyToAdd;
 
-        protected EnergySource(float i_MaxEnergy, float i_EnergyLeft = 0, float i_MinEnergy = 0)
+        protected EnergySource(float i_MaxEnergy, float i_EnergyLeft = 0, float i_MinEnergyToAdd = 0)
         {
             m_MaxEnergy = i_MaxEnergy;
             m_EnergyLeft = i_EnergyLeft;
-            m_MinEnergy = i_MinEnergy;
+            m_MinEnergyToAdd = i_MinEnergyToAdd;
         }
-
-        public abstract void AddEnergy(float i_EnergyToAdd);
     }
 }
