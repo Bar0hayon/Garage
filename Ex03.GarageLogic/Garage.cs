@@ -14,6 +14,14 @@ namespace Ex03.GarageLogic
 
         }
 
-        
+        public bool IsVehicleExists(string licensePlate)
+        {
+            return false;
+        }
+
+        public void ChangeStatus(string licensePlate, VehicleTicket.eVehicleStatus inRepair)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
