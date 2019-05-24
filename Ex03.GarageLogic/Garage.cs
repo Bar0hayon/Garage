@@ -28,5 +28,30 @@ namespace Ex03.GarageLogic
         {
             return m_VehicleTickets[i_LicensePlate].ToString();
         }
+
+        public List<string> GetLicesnePlates(VehicleTicket.eVehicleStatus i_Filter)
+        {
+            List<string> LicensePlates = new List<string>();
+            foreach(KeyValuePair<string, VehicleTicket> vehicleTicketPair in m_VehicleTickets)
+            {
+                if(vehicleTicketPair.Value.Status == i_Filter)
+                {
+                    LicensePlates.Add(vehicleTicketPair.Key);
+                }
+            }
+
+            return LicensePlates;
+        }
+
+        public List<string> GetAllLicensePlates()
+        {
+            List<string> LicensePlates = new List<string>();
+            foreach(KeyValuePair<string, VehicleTicket> vehicleTicketPair in m_VehicleTickets)
+            {
+                LicensePlates.Add(vehicleTicketPair.Key);
+            }
+
+            return LicensePlates;
+        }
     }
 }
