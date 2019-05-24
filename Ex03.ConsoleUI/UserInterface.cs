@@ -8,45 +8,52 @@ namespace Ex03.ConsoleUI
     public class UserInterface
     {
         GarageLogic.Garage m_Garage = new GarageLogic.Garage();
+        private readonly string[] r_MainMenuOptions = { "Add a vehicle to the garage",
+            "Show vehicles License-plates",
+            "Change vehicle status",
+            "Fill the Wheels air-pressure of a vehicle to maximum",
+            "Add fuel",
+            "Charge battery",
+            "Show vehicle details",
+            "EXIT"};
 
         public void MainMenu()
         {
             string userSelection;
             do
             {
-                printMainMenuOptions();
-                userSelection = Console.ReadLine();
+                userSelection = getUserSelection(r_MainMenuOptions);
                 switch (userSelection)
                 {
-                    case ("1"):
+                    case ("Add a vehicle to the garage"):
                         addVehicle();
                         break;
-                    case ("2"):
+                    case ("Show vehicles License-plates"):
                         showLicensePlates();
                         break;
-                    case ("3"):
+                    case ("Change vehicle status"):
                         changeVehicleStatus();
                         break;
-                    case ("4"):
+                    case ("Fill the Wheels air-pressure of a vehicle to maximum"):
                         fillAirPressureToMax();
                         break;
-                    case ("5"):
+                    case ("Add fuel"):
                         addFuel();
                         break;
-                    case ("6"):
+                    case ("Charge battery"):
                         chargeBattery();
                         break;
-                    case ("7"):
+                    case ("Show vehicle details"):
                         showVehicleDetails();
                         break;
-                    case ("0"):
+                    case ("EXIT"):
                         Console.WriteLine("GoodBye!");
                         break;
                     default:
                         Console.WriteLine("Input is not valid!");
                         break;
                 }
-            } while (userSelection != "0");
+            } while (userSelection != "EXIT");
         }
 
         private void showVehicleDetails()
@@ -163,19 +170,6 @@ namespace Ex03.ConsoleUI
                 UserSelection = 0;
             }
             return i_Options[UserSelection];
-        }
-
-        private void printMainMenuOptions()
-        {
-            Console.WriteLine("Please choose one of the followings:");
-            Console.WriteLine("\t1.Add a vehicle to the garage.");
-            Console.WriteLine("\t2.Show vehicles License-plates.");
-            Console.WriteLine("\t3.Change vehicle status");
-            Console.WriteLine("\t4.Fill the Wheels air-pressure of a vehicle to maximum.");
-            Console.WriteLine("\t5.Add fuel.");
-            Console.WriteLine("\t6.Charge battery.");
-            Console.WriteLine("\t7.Show vehicle details.");
-            Console.WriteLine("0.EXIT");
         }
     }
 }
