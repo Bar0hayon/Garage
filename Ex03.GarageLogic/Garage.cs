@@ -6,22 +6,22 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private List<VehicleTicket> m_VehicleTickets;
+        private Dictionary<string, VehicleTicket> m_VehicleTickets = new Dictionary<string, VehicleTicket>();
 
-        //TO DO:
-        public void AddVehicle()
-        {
-
+        public bool IsVehicleExists(string i_LicensePlate)
+        { 
+            return m_VehicleTickets.ContainsKey(i_LicensePlate);
         }
 
-        public bool IsVehicleExists(string licensePlate)
+        public void ChangeStatus(string i_LicensePlate, VehicleTicket.eVehicleStatus i_NewStatus)
         {
-            return false;
+            m_VehicleTickets[i_LicensePlate].ChangeStatus(i_NewStatus);
         }
 
-        public void ChangeStatus(string licensePlate, VehicleTicket.eVehicleStatus inRepair)
+        public void AddVehicleTicket(string i_OwnerName, string i_OwnerPhone, Vehicle i_NewVehicle)
         {
-            throw new NotImplementedException();
+            m_VehicleTickets.Add(i_NewVehicle.LicensePlate, 
+                new VehicleTicket(i_OwnerName, i_OwnerPhone, i_NewVehicle));
         }
     }
 }

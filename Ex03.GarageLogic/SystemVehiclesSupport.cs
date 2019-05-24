@@ -108,6 +108,72 @@ namespace Ex03.GarageLogic
             return NewVehicle;
         }
 
+        private static bool getIsTruckCarriageDangerous(string i_IsCarriageDangerousString)
+        {
+            bool IsCarriageDangerous;
+            switch (i_IsCarriageDangerousString)
+            {
+                case ("yes"):
+                    IsCarriageDangerous = true;
+                    break;
+                case ("no"):
+                    IsCarriageDangerous = false;
+                    break;
+                default:
+                    throw new Exception("input string should be yes/no");
+            }
+
+            return IsCarriageDangerous;
+        }
+
+        private static Motorcycle.eLicenseType getMotorcycleLicesneType(string i_LicenseTypeString)
+        {
+            Motorcycle.eLicenseType LicenseType;
+            switch (i_LicenseTypeString)
+            {
+                case ("A"):
+                    LicenseType = Motorcycle.eLicenseType.A;
+                    break;
+                case ("A1"):
+                    LicenseType = Motorcycle.eLicenseType.A1;
+                    break;
+                case ("A2"):
+                    LicenseType = Motorcycle.eLicenseType.A2;
+                    break;
+                case ("B"):
+                    LicenseType = Motorcycle.eLicenseType.B;
+                    break;
+                default:
+                    throw new Exception("License Type is not supported");
+            }
+
+            return LicenseType;
+        }
+
+        private static Car.eCarColor getCarColor(string i_CarColorString)
+        {
+            Car.eCarColor CarColor;
+            switch (i_CarColorString)
+            {
+                case ("Red"):
+                    CarColor = Car.eCarColor.Red;
+                    break;
+                case ("Blue"):
+                    CarColor = Car.eCarColor.Blue;
+                    break;
+                case ("Black"):
+                    CarColor = Car.eCarColor.Black;
+                    break;
+                case ("Gray"):
+                    CarColor = Car.eCarColor.Gray;
+                    break;
+                default:
+                    throw new Exception("Car color is not supported!");
+            }
+
+            return CarColor;
+        }
+
         private static EnergySource GetEnergySource(string i_EnergySource, Dictionary<string, string> i_VehicleProperties)
         {
             EnergySource energySource;

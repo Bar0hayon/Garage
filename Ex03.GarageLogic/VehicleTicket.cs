@@ -24,5 +24,13 @@ namespace Ex03.GarageLogic
         {
             m_Status = i_NewStatus;
         }
+
+        public Vehicle Vehicle
+        {
+            get
+            {
+                return m_Vehicle;
+            }
+        }
     }
 }

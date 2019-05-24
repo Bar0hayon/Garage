@@ -95,12 +95,20 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("Owner name:");
-                ownerName = Console.ReadLine();
-                Console.WriteLine("Owner phone number:");
-                ownerPhone = Console.ReadLine();
-                newVehicle = getNewVehicle(licensePlate);
-                //m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
+                try
+                {
+                    Console.WriteLine("Owner name:");
+                    ownerName = Console.ReadLine();
+                    Console.WriteLine("Owner phone number:");
+                    ownerPhone = Console.ReadLine();
+                    newVehicle = getNewVehicle(licensePlate);
+                    m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Vehicle was not added!");
+                }
             }
         }
 
