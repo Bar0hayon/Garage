@@ -32,5 +32,11 @@ namespace Ex03.GarageLogic
                 return m_Vehicle;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("Owner Name: {0}\nOwner phone: {1}\nStatus: {2}\n{3}",
+                m_OwnerName, m_OwnerPhone, m_Status.ToString(), m_Vehicle.ToString());
+        }
     }
 }

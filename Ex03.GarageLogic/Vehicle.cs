@@ -39,5 +39,14 @@ namespace Ex03.GarageLogic
         {
             return m_LicensePlate.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return string.Format("Model Name: {0}\n" +
+                "License Plate: {1}\n" +
+                "Energy Percentage: {2}\n{3}\n{4}",
+                m_ModelName, m_LicensePlate, m_EnergyPercentage.ToString(),
+                m_EnergySource.ToString(), m_Wheels[0].ToString());
+        }
     }
 }

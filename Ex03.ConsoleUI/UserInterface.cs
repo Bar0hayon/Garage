@@ -58,7 +58,16 @@ namespace Ex03.ConsoleUI
 
         private void showVehicleDetails()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("License plate:");
+            string LicensePlate = Console.ReadLine();
+            if(m_Garage.IsVehicleExists(LicensePlate))
+            {
+                Console.WriteLine(m_Garage.GetVehicleDetailsAsString(LicensePlate));
+            }
+            else
+            {
+                Console.WriteLine("Vehicle is not listed in the garage!");
+            }
         }
 
         private void chargeBattery()

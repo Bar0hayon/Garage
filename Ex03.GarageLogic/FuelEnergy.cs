@@ -27,5 +27,11 @@ namespace Ex03.GarageLogic
             }
             m_EnergyLeft += i_EnergyToAdd;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Fuel Type: {0} \n{1}",
+                m_FuelType.ToString(), base.ToString());
+        }
     }
 }

@@ -17,5 +17,11 @@ namespace Ex03.GarageLogic
             v_IsCarriageDangerous = i_IsCarrageDangerous;
             m_CarriageCapacity = i_CarriageCapacity;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Dangerous Carriage: {0}\nCarriage capacity: {1}\n{2}",
+                v_IsCarriageDangerous.ToString(), m_CarriageCapacity.ToString(), base.ToString());
+        }
     }
 }

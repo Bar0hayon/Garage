@@ -16,5 +16,10 @@ namespace Ex03.GarageLogic
             m_EnergyLeft = i_EnergyLeft;
             m_MinEnergyToAdd = i_MinEnergyToAdd;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Energy left: {0}", m_EnergyLeft);
+        }
     }
 }

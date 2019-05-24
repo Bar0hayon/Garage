@@ -30,5 +30,11 @@ namespace Ex03.GarageLogic
 
             m_AirPressure += i_AirPressureToAdd;
         }
+
+        public override string ToString()
+        {
+            return string.Format("Wheels Manufacturer: {0}\nWheels Air Pressure: {1}",
+                m_Manufacturer, m_AirPressure);
+        }
     }
 }

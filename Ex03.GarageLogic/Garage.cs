@@ -23,5 +23,10 @@ namespace Ex03.GarageLogic
             m_VehicleTickets.Add(i_NewVehicle.LicensePlate, 
                 new VehicleTicket(i_OwnerName, i_OwnerPhone, i_NewVehicle));
         }
+
+        public string GetVehicleDetailsAsString(string i_LicensePlate)
+        {
+            return m_VehicleTickets[i_LicensePlate].ToString();
+        }
     }
 }

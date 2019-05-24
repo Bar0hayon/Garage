@@ -15,8 +15,14 @@ namespace Ex03.GarageLogic
             int i_EngineVolume) : 
             base(i_ModelName, i_LicensePlate, i_EnergyPercentage, i_Wheels, i_EnergySource)
         {
-            m_LicensePlate = i_LicensePlate;
+            m_LicenseType = i_LicenseType;
             m_EngineVolume = i_EngineVolume;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("License Type: {0}\nEngineVolume: {1}\n{2}",
+                m_LicenseType.ToString(), m_EngineVolume.ToString(), base.ToString());
         }
     }
 }
