@@ -20,6 +20,8 @@ namespace Ex03.ConsoleUI
             "Show License plates of vehicles in status 'In Repair'",
             "Show License plates of vehicles in status 'Repaired'",
             "Show License plates of vehicles in status 'Paid'"};
+        private readonly string[] r_VehicleStatusOptions = { "Change to 'In Repair'" ,
+            "Change to 'Repaired'", "Change to 'Paid'"};
 
         public void MainMenu()
         {
@@ -88,10 +90,25 @@ namespace Ex03.ConsoleUI
         {
             throw new NotImplementedException();
         }
-
+        
         private void changeVehicleStatus()
         {
-            throw new NotImplementedException();
+            string LicensePlate = getLicensePlate();
+            string UserSelection = getUserSelection(r_VehicleStatusOptions);
+            switch (UserSelection)
+            {
+                case ("Change to 'In Repair'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    break;
+                case ("Change to 'Repaired'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Repaired);
+                    break;
+                case ("Change to 'Paid'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Paid);
+                    break;
+                default:
+                    throw new Exception("user selection is not supported!");
+            }
         }
         
         private void showLicensePlates()
@@ -130,8 +147,7 @@ namespace Ex03.ConsoleUI
             string ownerName;
             string ownerPhone;
             Vehicle newVehicle;
-            Console.WriteLine("License Plate:");
-            licensePlate = Console.ReadLine();
+            licensePlate = getLicensePlate();
             if(m_Garage.IsVehicleExists(licensePlate))
             {
                 Console.WriteLine("Vehcile is allready listed in the garage!");
@@ -208,6 +224,12 @@ namespace Ex03.ConsoleUI
                 UserSelection = 0;
             }
             return i_Options[UserSelection];
+        }
+
+        private string getLicensePlate()
+        {
+            Console.WriteLine("License plate:");
+            return Console.ReadLine();
         }
     }
 }
