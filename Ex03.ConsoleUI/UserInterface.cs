@@ -81,7 +81,26 @@ namespace Ex03.ConsoleUI
 
         private void chargeBattery()
         {
-            throw new NotImplementedException();
+            string LicensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(LicensePlate))
+            {
+                Console.WriteLine("Amount of battery to charge:");
+                float AmountOfChargeBatteryToDo = float.Parse(Console.ReadLine());
+                try
+                {
+                    m_Garage.ChargeBattery(LicensePlate, AmountOfChargeBatteryToDo);
+                    Console.WriteLine("Battery was charged successfully!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Battery was not charged!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("License plate was not found. Could not finish charging battery operation.");
+            }
         }
 
         private void addFuel()
@@ -141,7 +160,6 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
                     m_Garage.FillAirPressure(LicensePlate);
                     Console.WriteLine("Tiers's air pressure is fixed");
 

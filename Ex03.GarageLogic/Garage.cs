@@ -92,6 +92,28 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public void ChargeBattery(string i_LicensePlate, float i_AmountOfChargeBatteryToDo)
+        {
+            if (m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource is ElectricEnergy)
+            {
+
+                ElectricEnergy CarBattery = m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource as ElectricEnergy;
+                try
+                {
+                    CarBattery.AddEnergy(i_AmountOfChargeBatteryToDo);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw ex;
+                }
+            }
+            else
+            {
+                throw new FormatException("Vehicle is not using Fuel!");
+            }
+        }
+
         private void fillAirPressureToMaxCar(Vehicle i_VehicleType, Wheel[] i_WheelsToFillItAirPreasure)
         {
             foreach (Wheel wheel in i_WheelsToFillItAirPreasure)
@@ -116,8 +138,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void AddFuelToVehicle(string i_LicensePlate, eFuelType i_FuelType, 
-            float i_AmountOfFuelToAdd)
+        public void AddFuelToVehicle(string i_LicensePlate, eFuelType i_FuelType, float i_AmountOfFuelToAdd)
         {
             if(m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource is FuelEnergy)
             {
@@ -128,12 +149,13 @@ namespace Ex03.GarageLogic
                 }
                 catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     throw ex;
                 }
             }
             else
             {
-                throw new FormatException("this vehicle is not using Fuel!");
+                throw new FormatException("Vehicle is not using electricity!");
             }
         }
     }
