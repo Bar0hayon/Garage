@@ -78,7 +78,6 @@ namespace Ex03.ConsoleUI
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
                     Console.WriteLine("Battery was not charged!");
                 }
             }
