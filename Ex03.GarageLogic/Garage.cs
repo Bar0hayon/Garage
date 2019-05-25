@@ -20,13 +20,17 @@ namespace Ex03.GarageLogic
 
         public void AddVehicleTicket(string i_OwnerName, string i_OwnerPhone, Vehicle i_NewVehicle)
         {
-            m_VehicleTickets.Add(i_NewVehicle.LicensePlate, 
-                new VehicleTicket(i_OwnerName, i_OwnerPhone, i_NewVehicle));
+            m_VehicleTickets.Add(i_NewVehicle.LicensePlate, new VehicleTicket(i_OwnerName, i_OwnerPhone, i_NewVehicle));
         }
 
         public string GetVehicleDetailsAsString(string i_LicensePlate)
         {
             return m_VehicleTickets[i_LicensePlate].ToString();
+        }
+
+        public Vehicle GetVehicleByLicensePlateNumber(string i_LicensePlate)
+        {
+            return m_VehicleTickets[i_LicensePlate].Vehicle;
         }
     }
 }

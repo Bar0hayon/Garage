@@ -7,7 +7,8 @@ namespace Ex03.ConsoleUI
 {
     public class UserInterface
     {
-        GarageLogic.Garage m_Garage = new GarageLogic.Garage();
+        Garage m_Garage = new Garage();
+
         private readonly string[] r_MainMenuOptions = { "Add a vehicle to the garage",
             "Show vehicles License-plates",
             "Change vehicle status",
@@ -26,7 +27,9 @@ namespace Ex03.ConsoleUI
                 switch (userSelection)
                 {
                     case ("Add a vehicle to the garage"):
-                        addVehicle();
+                        Console.WriteLine("Please insert license plate number:");
+                        string LicensePlate = Console.ReadLine();
+                        addVehicleToGarage(LicensePlate);
                         break;
                     case ("Show vehicles License-plates"):
                         showLicensePlates();
@@ -82,7 +85,13 @@ namespace Ex03.ConsoleUI
 
         private void fillAirPressureToMax()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Please insert license plate number:");
+            string licensePlate = Console.ReadLine();
+            addVehicleToGarage(licensePlate);
+            Vehicle newVehicle = m_Garage.GetVehicleByLicensePlateNumber(licensePlate);
+            Wheel singleTier = new Wheel("null", 0); // DISCUSS WITH BAR - CHANGE/CRERATE NEW 'EMPTY CONSTRUCTOR'?
+            Wheel[] tiersToFillItAirPreasure = newVehicle.m_Wheels;
+            singleTier.FillAirPressure(newVehicle, tiersToFillItAirPreasure);
         }
 
         private void changeVehicleStatus()
@@ -95,19 +104,16 @@ namespace Ex03.ConsoleUI
             throw new NotImplementedException();
         }
 
-        private void addVehicle()
+        private void addVehicleToGarage(string io_LicensePlate)
         {
-            string licensePlate;
             string ownerName;
             string ownerPhone;
             Vehicle newVehicle;
-            Console.WriteLine("License Plate:");
-            licensePlate = Console.ReadLine();
-            if(m_Garage.IsVehicleExists(licensePlate))
+            if(m_Garage.IsVehicleExists(io_LicensePlate))
             {
                 Console.WriteLine("Vehcile is allready listed in the garage!");
                 Console.WriteLine("changing the vehicle status to 'In Repair'...");
-                m_Garage.ChangeStatus(licensePlate, GarageLogic.VehicleTicket.eVehicleStatus.InRepair);
+                m_Garage.ChangeStatus(io_LicensePlate, GarageLogic.VehicleTicket.eVehicleStatus.InRepair);
             }
             else
             {
@@ -117,7 +123,7 @@ namespace Ex03.ConsoleUI
                     ownerName = Console.ReadLine();
                     Console.WriteLine("Owner phone number:");
                     ownerPhone = Console.ReadLine();
-                    newVehicle = getNewVehicle(licensePlate);
+                    newVehicle = getNewVehicle(io_LicensePlate);
                     m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
                 }
                 catch(Exception ex)
@@ -131,14 +137,13 @@ namespace Ex03.ConsoleUI
         private Vehicle getNewVehicle(string i_LicensePlate)
         {
             Vehicle newVehicle;
-            string vehicleType;
             string energySource;
             Dictionary<string, string> vehicleProperties;
-            vehicleType = getUserSelection(SystemVehiclesSupport.SupportedVehicles);
+            string vehicleType = getUserSelection(SystemVehiclesSupport.SupportedVehicles);
             energySource = getUserSelection(SystemVehiclesSupport.GetEnergySources(vehicleType));
             vehicleProperties = getVehicleProperties(vehicleType, energySource);
             vehicleProperties.Add("License plate", i_LicensePlate);
-            newVehicle = SystemVehiclesSupport.CreateVehicle(vehicleType, energySource, vehicleProperties);
+            newVehicle = SystemVehiclesSupport.CreateVehicle(ref vehicleType, energySource, vehicleProperties);
 
             return newVehicle;
         }

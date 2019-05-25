@@ -7,3 +7,12 @@ C:\Users\baroh\source\repos\B19 Ex03 Bar 204074629 Daniel 204509780.sln\Ex03.Con
 C:\Users\baroh\source\repos\B19 Ex03 Bar 204074629 Daniel 204509780.sln\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CopyComplete
 C:\Users\baroh\source\repos\B19 Ex03 Bar 204074629 Daniel 204509780.sln\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
 C:\Users\baroh\source\repos\B19 Ex03 Bar 204074629 Daniel 204509780.sln\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.dll
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.pdb
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csprojAssemblyReference.cache
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CoreCompileInputs.cache
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CopyComplete
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
+C:\Users\Daniel\source\repos\Garage\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb

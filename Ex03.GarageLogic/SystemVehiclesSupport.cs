@@ -68,7 +68,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public static Vehicle CreateVehicle(string i_VehicleType, string i_EnergySource, 
+        public static Vehicle CreateVehicle(ref string i_VehicleType, string i_EnergySource, 
             Dictionary<string, string> i_VehicleProperties)
         {
             Vehicle NewVehicle;
