@@ -68,9 +68,8 @@ namespace Ex03.ConsoleUI
 
         private void showVehicleDetails()
         {
-            Console.WriteLine("License plate:");
-            string LicensePlate = Console.ReadLine();
-            if(m_Garage.IsVehicleExists(LicensePlate))
+            string LicensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(LicensePlate))
             {
                 Console.WriteLine(m_Garage.GetVehicleDetailsAsString(LicensePlate));
             }
@@ -88,18 +87,25 @@ namespace Ex03.ConsoleUI
         private void addFuel()
         {
             string LicensePlate = getLicensePlate();
-            eFuelType FuelType = getFuelType();
-            Console.WriteLine("Amount of fuel to add:");
-            float AmountOfFuelToAdd = float.Parse(Console.ReadLine());
-            try
+            if (m_Garage.IsVehicleExists(LicensePlate))
             {
-                m_Garage.AddFuelToVehicle(LicensePlate, FuelType, AmountOfFuelToAdd);
-                Console.WriteLine("Fuel was added successfully!");
+                eFuelType FuelType = getFuelType();
+                Console.WriteLine("Amount of fuel to add:");
+                float AmountOfFuelToAdd = float.Parse(Console.ReadLine());
+                try
+                {
+                    m_Garage.AddFuelToVehicle(LicensePlate, FuelType, AmountOfFuelToAdd);
+                    Console.WriteLine("Fuel was added successfully!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Fuel was not added!");
+                }
             }
-            catch(Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("Fuel was not added!");
+                Console.WriteLine("License plate was not found. Could not finish add fuel operation.");
             }
         }
         
@@ -130,25 +136,25 @@ namespace Ex03.ConsoleUI
 
         private void fillAirPressureToMax()
         {
-            Console.WriteLine("Please insert license plate number:");
-            string licensePlate = Console.ReadLine();
-            try
+            string LicensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(LicensePlate))
             {
-                if (m_Garage.IsVehicleExists(licensePlate))
+                try
                 {
-                    m_Garage.ChangeStatus(licensePlate, VehicleTicket.eVehicleStatus.InRepair);
-                    m_Garage.FillAirPressure(licensePlate);
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    m_Garage.FillAirPressure(LicensePlate);
                     Console.WriteLine("Tiers's air pressure is fixed");
+
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine("License plate was not found.");
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error occured while trying to adjust tiers's air pressure");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("Error occured while trying to adjust tiers's air pressure");
+                Console.WriteLine("License plate was not found. Could not finish fill air pressure to max operation.");
             }
         }
 
@@ -289,7 +295,7 @@ namespace Ex03.ConsoleUI
 
         private string getLicensePlate()
         {
-            Console.WriteLine("License plate:");
+            Console.WriteLine("Please insert license plate:");
             return Console.ReadLine();
         }
     }
