@@ -102,6 +102,7 @@ namespace Ex03.GarageLogic
         private static bool getIsTruckCarriageDangerous(string i_IsCarriageDangerousString)
         {
             bool IsCarriageDangerous;
+            i_IsCarriageDangerousString = i_IsCarriageDangerousString.ToLower();
             switch (i_IsCarriageDangerousString)
             {
                 case ("yes"):
@@ -120,18 +121,19 @@ namespace Ex03.GarageLogic
         private static Motorcycle.eLicenseType getMotorcycleLicesneType(string i_LicenseTypeString)
         {
             Motorcycle.eLicenseType LicenseType;
+            i_LicenseTypeString = i_LicenseTypeString.ToLower();
             switch (i_LicenseTypeString)
             {
-                case ("A"):
+                case ("a"):
                     LicenseType = Motorcycle.eLicenseType.A;
                     break;
-                case ("A1"):
+                case ("a1"):
                     LicenseType = Motorcycle.eLicenseType.A1;
                     break;
-                case ("A2"):
+                case ("a2"):
                     LicenseType = Motorcycle.eLicenseType.A2;
                     break;
-                case ("B"):
+                case ("b"):
                     LicenseType = Motorcycle.eLicenseType.B;
                     break;
                 default:
@@ -144,18 +146,19 @@ namespace Ex03.GarageLogic
         private static Car.eCarColor getCarColor(string i_CarColorString)
         {
             Car.eCarColor CarColor;
+            i_CarColorString = i_CarColorString.ToLower();
             switch (i_CarColorString)
             {
-                case ("Red"):
+                case ("red"):
                     CarColor = Car.eCarColor.Red;
                     break;
-                case ("Blue"):
+                case ("blue"):
                     CarColor = Car.eCarColor.Blue;
                     break;
-                case ("Black"):
+                case ("black"):
                     CarColor = Car.eCarColor.Black;
                     break;
-                case ("Gray"):
+                case ("gray"):
                     CarColor = Car.eCarColor.Gray;
                     break;
                 default:

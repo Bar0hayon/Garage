@@ -63,28 +63,14 @@ namespace Ex03.ConsoleUI
         }
         Garage m_Garage = new Garage();
 
-        private readonly string[] r_MainMenuOptions = { "Add a vehicle to the garage",
-            "Show vehicles License-plates",
-            "Change vehicle status",
-            "Fill the Wheels air-pressure of a vehicle to maximum",
-            "Add fuel",
-            "Charge battery",
-            "Show vehicle details",
-            "EXIT"};
-        private readonly string[] r_LicensePlatesFilterOptions = { "Show all License plates",
-            "Show License plates of vehicles in status 'In Repair'",
-            "Show License plates of vehicles in status 'Repaired'",
-            "Show License plates of vehicles in status 'Paid'"};
-        private readonly string[] r_VehicleStatusOptions = { "Change to 'In Repair'" ,
-            "Change to 'Repaired'", "Change to 'Paid'"};
-        private readonly string[] r_FuelTypes = { "Soler", "Octan98", "Octan96", "Octan95" };
+        
 
         public void MainMenu()
         {
             string userSelection;
             do
             {
-                userSelection = getUserSelection(r_MainMenuOptions);
+                userSelection = getUserSelection(UserOptions.MainMenu);
                 switch (userSelection)
                 {
                     case ("Add a vehicle to the garage"):
@@ -146,7 +132,6 @@ namespace Ex03.ConsoleUI
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
                     Console.WriteLine("Battery was not charged!");
                 }
             }
@@ -184,7 +169,7 @@ namespace Ex03.ConsoleUI
         private eFuelType getFuelType()
         {
             eFuelType FuelType;
-            string UserSelection = getUserSelection(r_FuelTypes);
+            string UserSelection = getUserSelection(UserOptions.FuelTypes);
             switch (UserSelection)
             {
                 case ("Soler"):
@@ -232,7 +217,7 @@ namespace Ex03.ConsoleUI
         private void changeVehicleStatus()
         {
             string LicensePlate = getLicensePlate();
-            string UserSelection = getUserSelection(r_VehicleStatusOptions);
+            string UserSelection = getUserSelection(UserOptions.VehicleStatus);
             switch (UserSelection)
             {
                 case ("Change to 'In Repair'"):
@@ -254,7 +239,7 @@ namespace Ex03.ConsoleUI
 
         private void showLicensePlates()
         {
-            string UserSelection = getUserSelection(r_LicensePlatesFilterOptions);
+            string UserSelection = getUserSelection(UserOptions.LicensePlatesFilter);
             switch (UserSelection)
             {
                 case ("Show all License plates"):
