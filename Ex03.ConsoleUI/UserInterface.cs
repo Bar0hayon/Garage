@@ -17,6 +17,12 @@ namespace Ex03.ConsoleUI
             "Charge battery",
             "Show vehicle details",
             "EXIT"};
+        private readonly string[] r_LicensePlatesFilterOptions = { "Show all License plates",
+            "Show License plates of vehicles in status 'In Repair'",
+            "Show License plates of vehicles in status 'Repaired'",
+            "Show License plates of vehicles in status 'Paid'"};
+        private readonly string[] r_VehicleStatusOptions = { "Change to 'In Repair'" ,
+            "Change to 'Repaired'", "Change to 'Paid'"};
 
         public void MainMenu()
         {
@@ -93,15 +99,55 @@ namespace Ex03.ConsoleUI
             Wheel[] tiersToFillItAirPreasure = newVehicle.m_Wheels;
             singleTier.FillAirPressure(newVehicle, tiersToFillItAirPreasure);
         }
-
+        
         private void changeVehicleStatus()
         {
-            throw new NotImplementedException();
+            string LicensePlate = getLicensePlate();
+            string UserSelection = getUserSelection(r_VehicleStatusOptions);
+            switch (UserSelection)
+            {
+                case ("Change to 'In Repair'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    break;
+                case ("Change to 'Repaired'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Repaired);
+                    break;
+                case ("Change to 'Paid'"):
+                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Paid);
+                    break;
+                default:
+                    throw new Exception("user selection is not supported!");
+            }
         }
-
+        
         private void showLicensePlates()
         {
-            throw new NotImplementedException();
+            string UserSelection = getUserSelection(r_LicensePlatesFilterOptions);
+            switch (UserSelection)
+            {
+                case ("Show all License plates"):
+                    printStringArray(m_Garage.GetAllLicensePlates());
+                    break;
+                case ("Show License plates of vehicles in status 'In Repair'"):
+                    printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.InRepair));
+                    break;
+                case ("Show License plates of vehicles in status 'Repaired'"):
+                    printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.Repaired));
+                    break;
+                case ("Show License plates of vehicles in status 'Paid'"):
+                    printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.Paid));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void printStringArray(List<string> i_StringArrayToPrint)
+        {
+            foreach(string stringToPrint in i_StringArrayToPrint)
+            {
+                Console.WriteLine(stringToPrint);
+            }
         }
 
         private void addVehicleToGarage(string io_LicensePlate)
@@ -184,6 +230,12 @@ namespace Ex03.ConsoleUI
                 UserSelection = 0;
             }
             return i_Options[UserSelection];
+        }
+
+        private string getLicensePlate()
+        {
+            Console.WriteLine("License plate:");
+            return Console.ReadLine();
         }
     }
 }
