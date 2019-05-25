@@ -3,10 +3,64 @@ using System.Collections.Generic;
 using System.Text;
 using Ex03.GarageLogic;
 
+
 namespace Ex03.ConsoleUI
 {
     public class UserInterface
     {
+        public class QualityCheck
+        {
+            public const int k_MaximumInputSize = 16;
+            public const int k_MinimumInputSize = 1;
+            private static bool isStringContainOnlyDigits(string i_InputString)
+            {
+                bool IsOnlyDigitsExist = true;
+                foreach (char ch in i_InputString)
+                {
+                    if (!Char.IsDigit(ch))
+                    {
+                        IsOnlyDigitsExist = false;
+                    }
+                }
+                return IsOnlyDigitsExist;
+            }
+
+            private static bool isStringContainOnlyChars(string i_InputString)
+            {
+                bool IsOnlyCharsExist = true;
+                foreach (char ch in i_InputString)
+                {
+                    if (!Char.IsLetter(ch))
+                    {
+                        IsOnlyCharsExist = false;
+                    }
+                }
+                return IsOnlyCharsExist;
+            }
+
+            private static bool isStringContainOnlyCharsOrDigits(string i_InputString)
+            {
+                bool IsOnlyCharsOrDigitsExist = true;
+                foreach (char ch in i_InputString)
+                {
+                    if (!(Char.IsDigit(ch) || Char.IsLetter(ch)))
+                    {
+                        IsOnlyCharsOrDigitsExist = false;
+                    }
+                }
+                return IsOnlyCharsOrDigitsExist;
+            }
+
+            private static bool isInputLengthValid (string i_InputString)
+            {
+                return i_InputString.Length <= k_MaximumInputSize && i_InputString.Length >= k_MinimumInputSize;
+            }
+
+            public static void IsFullLicensePlateValid(string i_LicensePlate, ref bool io_IsLicensePlateValid)
+            {
+                io_IsLicensePlateValid = isStringContainOnlyCharsOrDigits(i_LicensePlate) && isInputLengthValid(i_LicensePlate);
+            }
+        }
         Garage m_Garage = new Garage();
 
         private readonly string[] r_MainMenuOptions = { "Add a vehicle to the garage",
@@ -34,8 +88,7 @@ namespace Ex03.ConsoleUI
                 switch (userSelection)
                 {
                     case ("Add a vehicle to the garage"):
-                        Console.WriteLine("Please insert license plate number:");
-                        string LicensePlate = Console.ReadLine();
+                        string LicensePlate = getLicensePlate();
                         addVehicleToGarage(LicensePlate);
                         break;
                     case ("Show vehicles License-plates"):
@@ -127,7 +180,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("License plate was not found. Could not finish add fuel operation.");
             }
         }
-        
+
         private eFuelType getFuelType()
         {
             eFuelType FuelType;
@@ -198,7 +251,7 @@ namespace Ex03.ConsoleUI
                     throw new Exception("user selection is not supported!");
             }
         }
-        
+
         private void showLicensePlates()
         {
             string UserSelection = getUserSelection(r_LicensePlatesFilterOptions);
@@ -223,7 +276,7 @@ namespace Ex03.ConsoleUI
 
         private void printStringArray(List<string> i_StringArrayToPrint)
         {
-            foreach(string stringToPrint in i_StringArrayToPrint)
+            foreach (string stringToPrint in i_StringArrayToPrint)
             {
                 Console.WriteLine(stringToPrint);
             }
@@ -234,7 +287,7 @@ namespace Ex03.ConsoleUI
             string ownerName;
             string ownerPhone;
             Vehicle newVehicle;
-            if(m_Garage.IsVehicleExists(io_LicensePlate))
+            if (m_Garage.IsVehicleExists(io_LicensePlate))
             {
                 Console.WriteLine("Vehcile is allready listed in the garage!");
                 Console.WriteLine("changing the vehicle status to 'In Repair'...");
@@ -251,7 +304,7 @@ namespace Ex03.ConsoleUI
                     newVehicle = getNewVehicle(io_LicensePlate);
                     m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     Console.WriteLine("Vehicle was not added!");
@@ -276,7 +329,7 @@ namespace Ex03.ConsoleUI
         private Dictionary<string, string> getVehicleProperties(string i_VehicleType, string i_EnergySource)
         {
             Dictionary<string, string> VehicleProperties = new Dictionary<string, string>();
-            foreach(string propertie in SystemVehiclesSupport.GetVehicleProperties(i_VehicleType, i_EnergySource))
+            foreach (string propertie in SystemVehiclesSupport.GetVehicleProperties(i_VehicleType, i_EnergySource))
             {
                 Console.WriteLine(propertie + ":");
                 VehicleProperties.Add(propertie, Console.ReadLine());
@@ -313,8 +366,16 @@ namespace Ex03.ConsoleUI
 
         private string getLicensePlate()
         {
-            Console.WriteLine("Please insert license plate:");
-            return Console.ReadLine();
+            bool IsLicensePlateValid = false;
+            string LicensePlate;
+            do
+            {
+                Console.WriteLine("Please insert license plate:");
+                LicensePlate = Console.ReadLine();
+                QualityCheck.IsFullLicensePlateValid(LicensePlate, ref IsLicensePlateValid);
+            } while (!IsLicensePlateValid);
+
+            return LicensePlate;
         }
     }
 }
