@@ -10,34 +10,6 @@ namespace Ex03.GarageLogic
         protected float m_MaxEnergy;
         protected float m_MinEnergy;
 
-        public float MinEnergy
-        {
-            get
-            {
-                return m_MinEnergy;
-            }
-        }
-
-        public float MaxEnergy
-        {
-            get
-            {
-                return m_MaxEnergy;
-            }
-        }
-
-        public float EnergyLeft
-        {
-            get
-            {
-                return m_EnergyLeft;
-            }
-            set
-            {
-                m_EnergyLeft = value;
-            }
-        }
-
         protected EnergySource(float i_MaxEnergy, float i_EnergyLeft = 0, float i_MinEnergyToAdd = 0)
         {
             m_MaxEnergy = i_MaxEnergy;

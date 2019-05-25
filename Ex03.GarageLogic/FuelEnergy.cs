@@ -8,14 +8,6 @@ namespace Ex03.GarageLogic
     {
         private eFuelType m_FuelType;
 
-        public eFuelType FuelType
-        {
-            get
-            {
-                return m_FuelType;
-            }
-        }
-
         public FuelEnergy(eFuelType i_FuelType, float i_MaxEnergy, 
             float i_EnergyLeft = 0, float i_MinEnergyToAdd = 0) : 
             base(i_MaxEnergy, i_EnergyLeft, i_MinEnergyToAdd)
