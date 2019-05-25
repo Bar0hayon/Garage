@@ -12,6 +12,18 @@ namespace Ex03.GarageLogic
         private Vehicle m_Vehicle;
         private eVehicleStatus m_Status;
 
+        public eVehicleStatus Status
+        {
+            get
+            {
+                return m_Status;
+            }
+            set
+            {
+                m_Status = value;
+            }
+        }
+
         public VehicleTicket(string i_OwnerName, string i_OwnerPhone, Vehicle i_Vehicle)
         {
             m_OwnerName = i_OwnerName;
