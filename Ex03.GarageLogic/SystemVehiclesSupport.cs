@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private static string[] s_SupportedVehicles = {"Car", "Motorcycle", "Truck"};
         private static string[] s_SupportedEnergySources = {"Electric", "Fuel" };
         private static string[] s_VehicleProperties = {"Model Name", "Energy Percentage (number 0-100)",
-        "Wheel Manufacturer", "Wheels Air Pressure", "Wheels Max Air Pressure"};
+        "Wheel Manufacturer", "Wheels Air Pressure"};
         private static string[] s_CarProperties = {"Color (Red/ Blue/ Black/ Gray)",
             "Number of Doors (2/ 3/ 4/ 5)"};
         private static string[] s_MotorcycleProperties = { "License Type (A/ A1/ A2/ B)", "EngineVolume" };
@@ -20,16 +20,7 @@ namespace Ex03.GarageLogic
         {
             List<string> VehicleProperties = new List<string>();
             VehicleProperties.AddRange(s_VehicleProperties);
-            if(i_EnergySource == "Fuel")
-            {
-                VehicleProperties.Add("Max Fuel");
-                VehicleProperties.Add("Fuel Type (Soler/ Octan95/ Octan96/ Octan98)");
-            }
-            else
-            {
-                VehicleProperties.Add("Max Battery in hours");
-            }
-
+            
             switch (i_VehicleType)
             {
                 case ("Car"):
@@ -77,7 +68,7 @@ namespace Ex03.GarageLogic
             float EnergyPercentage = float.Parse(i_VehicleProperties["Energy Percentage (number 0-100)"]);
             EnergyPercentage /= 100;
             Wheel[] Wheels = getWheels(i_VehicleType, i_VehicleProperties);
-            EnergySource energySource = GetEnergySource(i_EnergySource, i_VehicleProperties);
+            EnergySource energySource = GetEnergySource(i_EnergySource, i_VehicleType, i_VehicleProperties);
             switch (i_VehicleType)
             {
                 case ("Car"):
@@ -174,7 +165,8 @@ namespace Ex03.GarageLogic
             return CarColor;
         }
 
-        private static EnergySource GetEnergySource(string i_EnergySource, Dictionary<string, string> i_VehicleProperties)
+        private static EnergySource GetEnergySource(string i_EnergySource, string i_VehicleType,
+            Dictionary<string, string> i_VehicleProperties)
         {
             EnergySource energySource;
             float MaxEnergy;
@@ -182,16 +174,16 @@ namespace Ex03.GarageLogic
             float MinEnergyToAdd = 0;
             float EnergyPercenatge = float.Parse(i_VehicleProperties["Energy Percentage (number 0-100)"]);
             EnergyPercenatge /= 100;
-            if(i_EnergySource == "Fuel")
-            { 
-                eFuelType FuelType = getFuelType(i_VehicleProperties["Fuel Type (Soler/ Octan95/ Octan96/ Octan98)"]);
-                MaxEnergy = float.Parse(i_VehicleProperties["Max Fuel"]);
+            if (i_EnergySource == "Fuel")
+            {
+                eFuelType FuelType = getFuelType(i_VehicleType);
+                MaxEnergy = getFuelMaxEnergy(i_VehicleType);
                 EnergyLeft = MaxEnergy * EnergyPercenatge;
                 energySource = new FuelEnergy(FuelType, MaxEnergy, EnergyLeft, MinEnergyToAdd);
             }
-            else if(i_EnergySource == "Electric")
+            else if (i_EnergySource == "Electric")
             {
-                MaxEnergy = float.Parse(i_VehicleProperties["Max Battery in hours"]);
+                MaxEnergy = getElectricMaxEnergy(i_VehicleType);
                 EnergyLeft = MaxEnergy * EnergyPercenatge;
                 energySource = new ElectricEnergy(MaxEnergy, EnergyLeft, MinEnergyToAdd);
             }
@@ -203,43 +195,104 @@ namespace Ex03.GarageLogic
             return energySource;
         }
 
-        private static eFuelType getFuelType(string i_FuelType)
+        private static float getElectricMaxEnergy(string i_VehicleType)
         {
-            eFuelType FuelType;
-            switch (i_FuelType)
+            float MaxEnergy;
+            switch (i_VehicleType)
             {
-                case ("Soler"):
-                    FuelType = eFuelType.Soler;
+                case ("Motorcycle"):
+                    MaxEnergy = (float)1.4;
                     break;
-                case ("Octan95"):
-                    FuelType = eFuelType.Octan95;
-                    break;
-                case ("Octan96"):
-                    FuelType = eFuelType.Octan96;
-                    break;
-                case ("Octan98"):
-                    FuelType = eFuelType.Octan98;
+                case ("Car"):
+                    MaxEnergy = (float)1.8;
                     break;
                 default:
-                    throw new Exception("Fuel Type is not valid");
+                    throw new Exception("Vehicle Type is not valid");
+            }
+
+            return MaxEnergy;
+        }
+
+        private static float getFuelMaxEnergy(string i_VehicleType)
+        {
+            float MaxEnergy;
+            switch (i_VehicleType)
+            {
+                case ("Truck"):
+                    MaxEnergy = 110;
+                    break;
+                case ("Motorcycle"):
+                    MaxEnergy = 8;
+                    break;
+                case ("Car"):
+                    MaxEnergy = 55;
+                    break;
+                default:
+                    throw new Exception("Vehicle Type is not valid");
+            }
+
+            return MaxEnergy;
+        }
+
+        private static eFuelType getFuelType(string i_VehicleType)
+        {
+            eFuelType FuelType;
+            switch (i_VehicleType)
+            {
+                case ("Truck"):
+                    FuelType = eFuelType.Soler;
+                    break;
+                case ("Motorcycle"):
+                    FuelType = eFuelType.Octan95;
+                    break;
+                case ("Car"):
+                    FuelType = eFuelType.Octan96;
+                    break;
+                default:
+                    throw new Exception("Vehicle Type is not valid");
             }
             return FuelType;
         }
-
+        
         private static Wheel[] getWheels(string i_VehicleType, Dictionary<string, string> i_VehicleProperties)
         {
             int numOfWheels = getNumOfWheels(i_VehicleType);
             Wheel[] Wheels = new Wheel[numOfWheels];
             string Manufacturer = i_VehicleProperties["Wheel Manufacturer"];
-            float MaxAirPressure = float.Parse(i_VehicleProperties["Wheels Max Air Pressure"]);
+            float MaxAirPressure = getMaxAirPressure(i_VehicleType);
             float MinAirPressure = 0;
             float CurrentAirPressure = float.Parse(i_VehicleProperties["Wheels Air Pressure"]);
+            if(CurrentAirPressure > MaxAirPressure || CurrentAirPressure < MinAirPressure)
+            {
+                throw new ValueOutOfRangeException(MaxAirPressure, MinAirPressure, "Wheels air pressure");
+            }
             for (int i = 0; i < numOfWheels; i++)
             {
                 Wheels[i] = new Wheel(Manufacturer, MaxAirPressure, MinAirPressure, CurrentAirPressure);
             }
 
             return Wheels;
+        }
+
+        private static float getMaxAirPressure(string i_VehicleType)
+        {
+            float MaxAirPressure;
+            switch (i_VehicleType)
+            {
+                case ("Car"):
+                    MaxAirPressure = 31;
+                    break;
+                case ("Motorcycle"):
+                    MaxAirPressure = 33;
+                    break;
+                case ("Truck"):
+                    MaxAirPressure = 26;
+                    break;
+                default:
+                    throw new Exception("Vehicle Type is not supported!");
+            }
+
+            return MaxAirPressure;
         }
 
         private static int getNumOfWheels(string i_VehicleType)
@@ -254,7 +307,7 @@ namespace Ex03.GarageLogic
                     numOfWheels = 2;
                     break;
                 case ("Truck"):
-                    numOfWheels = 8;
+                    numOfWheels = 12;
                     break;
                 default:
                     throw new Exception("Vehicle Type is not valid");
