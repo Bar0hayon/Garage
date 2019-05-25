@@ -17,13 +17,14 @@ namespace Ex03.GarageLogic
 
         public void AddFuel(float i_EnergyToAdd, eFuelType i_FuelType)
         {
-            if((i_EnergyToAdd + m_EnergyLeft) > m_MaxEnergy || i_EnergyToAdd < m_MinEnergyToAdd)
+            if((i_EnergyToAdd + m_EnergyLeft) > m_MaxEnergy || i_EnergyToAdd < m_MinEnergy)
             {
-                throw new ValueOutOfRangeException(m_MaxEnergy, m_MinEnergyToAdd);
+                throw new ValueOutOfRangeException(m_MaxEnergy, m_MinEnergy, "Fuel");
             }
             if(i_FuelType != m_FuelType)
             {
-                throw new ArgumentException("Wrong fuel type!");
+                throw new ArgumentException(string.Format("Wrong fuel type! Fuel Type should be {0}"
+                    ,m_FuelType.ToString()));
             }
             m_EnergyLeft += i_EnergyToAdd;
         }

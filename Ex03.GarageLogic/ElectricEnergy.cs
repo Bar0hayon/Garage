@@ -13,9 +13,9 @@ namespace Ex03.GarageLogic
 
         public void AddEnergy(float i_EnergyToAdd)
         {
-            if((i_EnergyToAdd + m_EnergyLeft) > m_MaxEnergy || i_EnergyToAdd < m_MinEnergyToAdd)
+            if((i_EnergyToAdd + m_EnergyLeft) > m_MaxEnergy || i_EnergyToAdd < m_MinEnergy)
             {
-                throw new ValueOutOfRangeException(m_MaxEnergy, m_MinEnergyToAdd);
+                throw new ValueOutOfRangeException(m_MaxEnergy, m_MinEnergy);
             }
             m_EnergyLeft += i_EnergyToAdd;
         }
