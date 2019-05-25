@@ -128,7 +128,7 @@ namespace Ex03.ConsoleUI
                     m_Garage.ChargeBattery(LicensePlate, AmountOfChargeBatteryToDo);
                     Console.WriteLine("Battery was charged successfully!");
                 }
-                catch (Exception ex)
+                catch
                 {
                     Console.WriteLine("Battery was not charged!");
                 }
