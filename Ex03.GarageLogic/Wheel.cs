@@ -11,6 +11,14 @@ namespace Ex03.GarageLogic
         private float m_MaxAirPressure;
         private float m_MinAirPressure;
 
+        public float MaxAirPressure
+        {
+            get
+            {
+                return m_MaxAirPressure;
+            }
+        }
+
         public Wheel(string i_Manufacturer, float i_MaxAirPressure, float i_MinAirPressure = 0,
             float i_CurrentAirPressure = 0)
         {
