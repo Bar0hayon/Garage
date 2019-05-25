@@ -10,9 +10,6 @@ namespace Ex03.GarageLogic
         private float m_AirPressure;
         private float m_MaxAirPressure;
         private float m_MinAirPressure;
-        public const float k_MaxAirPreasureMotorcycle = 33;
-        public const float k_MaxAirPreasureCar = 33;
-        public const float k_MaxAirPreasureTruck = 26;
 
         public Wheel(string i_Manufacturer, float i_MaxAirPressure, float i_MinAirPressure = 0,
             float i_CurrentAirPressure = 0)
@@ -39,56 +36,15 @@ namespace Ex03.GarageLogic
             return string.Format("Wheels Manufacturer: {0}\nWheels Air Pressure: {1}",
                 m_Manufacturer, m_AirPressure);
         }
-
-        public void FillAirPressure(Vehicle i_VehicleToMaxItTiersAirPreasure, Wheel[] i_WheelsToFillItAirPreasure)
+        public float getAirPressure
         {
-            try
+            get
             {
-                if (i_VehicleToMaxItTiersAirPreasure is Car)
-                {
-                    fillAirPressureToMaxCar(i_VehicleToMaxItTiersAirPreasure, i_WheelsToFillItAirPreasure);
-                }
-                else if (i_VehicleToMaxItTiersAirPreasure is Motorcycle)
-                {
-                    fillAirPressureToMaxMotorcycle(i_VehicleToMaxItTiersAirPreasure, i_WheelsToFillItAirPreasure);
-                }
-                else if (i_VehicleToMaxItTiersAirPreasure is Truck)
-                {
-                    fillAirPressureToMaxTruck(i_VehicleToMaxItTiersAirPreasure, i_WheelsToFillItAirPreasure);
-                }
+                return m_AirPressure;
             }
-            catch (ValueOutOfRangeException)
+            set
             {
-                Console.WriteLine("Current tiers's air preasure is out of range!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("Error occured while trying to fill air in tiers");
-            }
-        }
-
-        private void fillAirPressureToMaxCar(Vehicle i_VehicleType, Wheel[] i_WheelsToFillItAirPreasure)
-        {
-            foreach (Wheel wheel in i_WheelsToFillItAirPreasure)
-            {
-                wheel.AddAirPressure(k_MaxAirPreasureCar - wheel.m_AirPressure);
-            }
-        }
-
-        private void fillAirPressureToMaxMotorcycle(Vehicle i_VehicleType, Wheel[] i_WheelsToFillItAirPreasure)
-        {
-            foreach (Wheel wheel in i_WheelsToFillItAirPreasure)
-            {
-                wheel.AddAirPressure(k_MaxAirPreasureMotorcycle - wheel.m_AirPressure);
-            }
-        }
-
-        private void fillAirPressureToMaxTruck(Vehicle i_VehicleType, Wheel[] i_WheelsToFillItAirPreasure)
-        {
-            foreach (Wheel wheel in i_WheelsToFillItAirPreasure)
-            {
-                wheel.AddAirPressure(k_MaxAirPreasureTruck - wheel.m_AirPressure);
+                m_AirPressure = value;
             }
         }
     }

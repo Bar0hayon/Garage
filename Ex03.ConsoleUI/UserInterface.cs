@@ -93,13 +93,26 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Please insert license plate number:");
             string licensePlate = Console.ReadLine();
-            addVehicleToGarage(licensePlate);
-            Vehicle newVehicle = m_Garage.GetVehicleByLicensePlateNumber(licensePlate);
-            Wheel singleTier = new Wheel("null", 0); // DISCUSS WITH BAR - CHANGE/CRERATE NEW 'EMPTY CONSTRUCTOR'?
-            Wheel[] tiersToFillItAirPreasure = newVehicle.m_Wheels;
-            singleTier.FillAirPressure(newVehicle, tiersToFillItAirPreasure);
+            try
+            {
+                if (m_Garage.IsVehicleExists(licensePlate))
+                {
+                    m_Garage.ChangeStatus(licensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    m_Garage.FillAirPressure(licensePlate);
+                    Console.WriteLine("Tiers's air pressure is fixed");
+                }
+                else
+                {
+                    Console.WriteLine("License plate was not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error occured while trying to adjust tiers's air pressure");
+            }
         }
-        
+
         private void changeVehicleStatus()
         {
             string LicensePlate = getLicensePlate();

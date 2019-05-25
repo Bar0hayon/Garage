@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         protected string m_ModelName;
         protected string m_LicensePlate;
         protected float m_EnergyPercentage;
-        public Wheel[] m_Wheels;
+        private Wheel[] m_Wheels;
         protected EnergySource m_EnergySource;
 
         public Vehicle(string i_ModelName, string i_LicensePlate, float i_EnergyPercentage,
@@ -20,6 +20,14 @@ namespace Ex03.GarageLogic
             m_LicensePlate = i_LicensePlate;
             m_ModelName = i_ModelName;
             m_Wheels = i_Wheels;
+        }
+
+        public Wheel[] wheels
+        {
+            get
+            {
+                return m_Wheels;
+            }
         }
 
         public string LicensePlate
