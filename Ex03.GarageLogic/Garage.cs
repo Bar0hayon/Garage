@@ -57,5 +57,26 @@ namespace Ex03.GarageLogic
 
             return LicensePlates;
         }
+
+        public void AddFuelToVehicle(string i_LicensePlate, eFuelType i_FuelType, 
+            float i_AmountOfFuelToAdd)
+        {
+            if(m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource is FuelEnergy)
+            {
+                FuelEnergy CarFuelTank = m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource as FuelEnergy;
+                try
+                {
+                    CarFuelTank.AddFuel(i_AmountOfFuelToAdd, i_FuelType);
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                throw new FormatException("this vehicle is not using Fuel!");
+            }
+        }
     }
 }

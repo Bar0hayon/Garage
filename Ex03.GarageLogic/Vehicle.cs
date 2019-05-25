@@ -22,6 +22,14 @@ namespace Ex03.GarageLogic
             m_Wheels = i_Wheels;
         }
 
+        public EnergySource EnergySource
+        {
+            get
+            {
+                return m_EnergySource;
+            }
+        }
+
         public string LicensePlate
         {
             get

@@ -23,6 +23,7 @@ namespace Ex03.ConsoleUI
             "Show License plates of vehicles in status 'Paid'"};
         private readonly string[] r_VehicleStatusOptions = { "Change to 'In Repair'" ,
             "Change to 'Repaired'", "Change to 'Paid'"};
+        private readonly string[] r_FuelTypes = { "Soler", "Octan98", "Octan96", "Octan95" };
 
         public void MainMenu()
         {
@@ -86,7 +87,45 @@ namespace Ex03.ConsoleUI
 
         private void addFuel()
         {
-            throw new NotImplementedException();
+            string LicensePlate = getLicensePlate();
+            eFuelType FuelType = getFuelType();
+            Console.WriteLine("Amount of fuel to add:");
+            float AmountOfFuelToAdd = float.Parse(Console.ReadLine());
+            try
+            {
+                m_Garage.AddFuelToVehicle(LicensePlate, FuelType, AmountOfFuelToAdd);
+                Console.WriteLine("Fuel was added successfully!");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Fuel was not added!");
+            }
+        }
+        
+        private eFuelType getFuelType()
+        {
+            eFuelType FuelType;
+            string UserSelection = getUserSelection(r_FuelTypes);
+            switch (UserSelection)
+            {
+                case ("Soler"):
+                    FuelType = eFuelType.Soler;
+                    break;
+                case ("Octan98"):
+                    FuelType = eFuelType.Octan98;
+                    break;
+                case ("Octan96"):
+                    FuelType = eFuelType.Octan96;
+                    break;
+                case ("Octan95"):
+                    FuelType = eFuelType.Octan95;
+                    break;
+                default:
+                    throw new FormatException("Fuel type is not supported");
+            }
+
+            return FuelType;
         }
 
         private void fillAirPressureToMax()
@@ -108,12 +147,15 @@ namespace Ex03.ConsoleUI
             {
                 case ("Change to 'In Repair'"):
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    Console.WriteLine("Status changed to 'In Repair' successfully");
                     break;
                 case ("Change to 'Repaired'"):
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Repaired);
+                    Console.WriteLine("Status changed to 'Repaired' successfully");
                     break;
                 case ("Change to 'Paid'"):
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Paid);
+                    Console.WriteLine("Status changed to 'Paid' successfully");
                     break;
                 default:
                     throw new Exception("user selection is not supported!");
