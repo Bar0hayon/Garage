@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
         {
             if(i_NumOfDoors > r_MaxNumOfDoors || i_NumOfDoors < r_MinNumOfDoors)
             {
-                throw new ValueOutOfRangeException(r_MaxNumOfDoors, r_MinNumOfDoors);
+                throw new ValueOutOfRangeException(r_MaxNumOfDoors, r_MinNumOfDoors, "Number of doors");
             }
             m_Color = i_Color;
             m_NumOfDoors = i_NumOfDoors;

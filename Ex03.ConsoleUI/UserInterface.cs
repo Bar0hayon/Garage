@@ -34,8 +34,7 @@ namespace Ex03.ConsoleUI
                 switch (userSelection)
                 {
                     case ("Add a vehicle to the garage"):
-                        Console.WriteLine("Please insert license plate number:");
-                        string LicensePlate = Console.ReadLine();
+                        string LicensePlate = getLicensePlate();
                         addVehicleToGarage(LicensePlate);
                         break;
                     case ("Show vehicles License-plates"):
