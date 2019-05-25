@@ -155,7 +155,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new FormatException("Vehicle is not using electricity!");
+                throw new FormatException("Vehicle is not using Fuel!");
             }
         }
     }
