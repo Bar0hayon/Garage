@@ -63,8 +63,6 @@ namespace Ex03.ConsoleUI
         }
         Garage m_Garage = new Garage();
 
-        
-
         public void MainMenu()
         {
             string userSelection;
