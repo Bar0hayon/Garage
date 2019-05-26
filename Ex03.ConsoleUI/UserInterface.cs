@@ -10,9 +10,9 @@ namespace Ex03.ConsoleUI
     {
         public class QualityCheck
         {
-            public const int k_MaximumInputSize = 16;
-            public const int k_MinimumInputSize = 1;
-            private static bool isStringContainOnlyDigits(string i_InputString)
+            internal const int k_MaximumInputSize = 16;
+            internal const int k_MinimumInputSize = 1;
+            internal static bool isStringContainOnlyDigits(string i_InputString)
             {
                 bool IsOnlyDigitsExist = true;
                 foreach (char ch in i_InputString)
@@ -20,12 +20,13 @@ namespace Ex03.ConsoleUI
                     if (!Char.IsDigit(ch))
                     {
                         IsOnlyDigitsExist = false;
+                        throw new FormatException("Invalid input: string contain special characters and/or letters.");
                     }
                 }
                 return IsOnlyDigitsExist;
             }
 
-            private static bool isStringContainOnlyChars(string i_InputString)
+            internal static bool isStringContainOnlyChars(string i_InputString)
             {
                 bool IsOnlyCharsExist = true;
                 foreach (char ch in i_InputString)
@@ -33,12 +34,13 @@ namespace Ex03.ConsoleUI
                     if (!Char.IsLetter(ch))
                     {
                         IsOnlyCharsExist = false;
+                        throw new FormatException("Invalid input: string contain special characters and/or digits number.");
                     }
                 }
                 return IsOnlyCharsExist;
             }
 
-            private static bool isStringContainOnlyCharsOrDigits(string i_InputString)
+            internal static bool isStringContainOnlyCharsOrDigits(string i_InputString)
             {
                 bool IsOnlyCharsOrDigitsExist = true;
                 foreach (char ch in i_InputString)
@@ -46,17 +48,24 @@ namespace Ex03.ConsoleUI
                     if (!(Char.IsDigit(ch) || Char.IsLetter(ch)))
                     {
                         IsOnlyCharsOrDigitsExist = false;
+                        throw new FormatException("Invalid input: string contain special characters.");
                     }
                 }
                 return IsOnlyCharsOrDigitsExist;
             }
 
-            private static bool isInputLengthValid (string i_InputString)
+            internal static bool isInputLengthValid (string i_InputString)
             {
-                return i_InputString.Length <= k_MaximumInputSize && i_InputString.Length >= k_MinimumInputSize;
+                
+                bool IsInputLengthValid = i_InputString.Length <= k_MaximumInputSize && i_InputString.Length >= k_MinimumInputSize;
+                if (!IsInputLengthValid)
+                {
+                    throw new ValueOutOfRangeException(k_MaximumInputSize, k_MinimumInputSize, "Input string length is invalid!");
+                }
+                return IsInputLengthValid;
             }
 
-            public static void IsFullLicensePlateValid(string i_LicensePlate, ref bool io_IsLicensePlateValid)
+            internal static void IsFullLicensePlateValid(string i_LicensePlate, ref bool io_IsLicensePlateValid)
             {
                 io_IsLicensePlateValid = isStringContainOnlyCharsOrDigits(i_LicensePlate) && isInputLengthValid(i_LicensePlate);
             }
@@ -191,12 +200,12 @@ namespace Ex03.ConsoleUI
 
         private void fillAirPressureToMax()
         {
-            string LicensePlate = getLicensePlate();
-            if (m_Garage.IsVehicleExists(LicensePlate))
+            string licensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(licensePlate))
             {
                 try
                 {
-                    m_Garage.FillAirPressure(LicensePlate);
+                    m_Garage.FillAirPressure(licensePlate);
                     Console.WriteLine("Tiers's air pressure is fixed");
 
                 }
@@ -231,7 +240,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine("Status changed to 'Paid' successfully");
                     break;
                 default:
-                    throw new Exception("user selection is not supported!");
+                    throw new Exception("User selection is not supported!");
             }
         }
 
@@ -273,7 +282,7 @@ namespace Ex03.ConsoleUI
             if (m_Garage.IsVehicleExists(io_LicensePlate))
             {
                 Console.WriteLine("Vehcile is allready listed in the garage!");
-                Console.WriteLine("changing the vehicle status to 'In Repair'...");
+                Console.WriteLine("Changing the vehicle status to 'In Repair'...");
                 m_Garage.ChangeStatus(io_LicensePlate, GarageLogic.VehicleTicket.eVehicleStatus.InRepair);
             }
             else
@@ -282,10 +291,13 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Owner name:");
                     ownerName = Console.ReadLine();
+                    QualityCheck.isStringContainOnlyChars(ownerName);
                     Console.WriteLine("Owner phone number:");
                     ownerPhone = Console.ReadLine();
+                    QualityCheck.isStringContainOnlyDigits(ownerName);
                     newVehicle = getNewVehicle(io_LicensePlate);
                     m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
+                    Console.WriteLine("Vehicle was added successfully");
                 }
                 catch (Exception ex)
                 {
@@ -336,7 +348,7 @@ namespace Ex03.ConsoleUI
                     UserSelection = (int.Parse(Console.ReadLine()) - 1);
                     if (UserSelection < 0 || UserSelection >= i_Options.Length)
                     {
-                        Console.WriteLine("Input is not valid!");
+                        throw new FormatException("Input string is not valid!");
                     }
                 } while (UserSelection < 0 || UserSelection >= i_Options.Length);
             }

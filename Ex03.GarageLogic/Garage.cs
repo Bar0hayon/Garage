@@ -61,11 +61,11 @@ namespace Ex03.GarageLogic
         public void FillAirPressure(string i_LicensePlate)
         {
 
-            Vehicle vehicleToMaxItTiersAirPreasure = GetVehicleByLicensePlateNumber(i_LicensePlate);
-            Wheel[] wheelsToFillItAirPreasure = vehicleToMaxItTiersAirPreasure.wheels;
+            Vehicle vehicleToMaxItTiersAirPressure = GetVehicleByLicensePlateNumber(i_LicensePlate);
+            Wheel[] wheelsToFillItAirPressure = vehicleToMaxItTiersAirPressure.wheels;
             try
             {
-                fillAirPressureToMax(wheelsToFillItAirPreasure);
+                fillAirPressureToMax(wheelsToFillItAirPressure);
             }
             catch (ValueOutOfRangeException)
             {
@@ -96,7 +96,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new FormatException("Vehicle is not using Fuel!");
+                throw new FormatException("Vehicle is not using electricity!");
             }
         }
 
