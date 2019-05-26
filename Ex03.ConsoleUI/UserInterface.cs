@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Ex03.GarageLogic;
 
-
 namespace Ex03.ConsoleUI
 {
     public class UserInterface
@@ -12,65 +11,70 @@ namespace Ex03.ConsoleUI
         {
             internal const int k_MaximumInputSize = 16;
             internal const int k_MinimumInputSize = 1;
-            internal static bool isStringContainOnlyDigits(string i_InputString)
+
+            internal static bool IsStringContainOnlyDigits(string i_InputString)
             {
                 bool IsOnlyDigitsExist = true;
                 foreach (char ch in i_InputString)
                 {
-                    if (!Char.IsDigit(ch))
+                    if (!char.IsDigit(ch))
                     {
                         IsOnlyDigitsExist = false;
                         throw new FormatException("Invalid input: string contain special characters and/or letters.");
                     }
                 }
+
                 return IsOnlyDigitsExist;
             }
 
-            internal static bool isStringContainOnlyChars(string i_InputString)
+            internal static bool IsStringContainOnlyChars(string i_InputString)
             {
                 bool IsOnlyCharsExist = true;
                 foreach (char ch in i_InputString)
                 {
-                    if (!Char.IsLetter(ch))
+                    if (!char.IsLetter(ch))
                     {
                         IsOnlyCharsExist = false;
                         throw new FormatException("Invalid input: string contain special characters and/or digits number.");
                     }
                 }
+
                 return IsOnlyCharsExist;
             }
 
-            internal static bool isStringContainOnlyCharsOrDigits(string i_InputString)
+            internal static bool IsStringContainOnlyCharsOrDigits(string i_InputString)
             {
                 bool IsOnlyCharsOrDigitsExist = true;
                 foreach (char ch in i_InputString)
                 {
-                    if (!(Char.IsDigit(ch) || Char.IsLetter(ch)))
+                    if (!(char.IsDigit(ch) || char.IsLetter(ch)))
                     {
                         IsOnlyCharsOrDigitsExist = false;
                         throw new FormatException("Invalid input: string contain special characters.");
                     }
                 }
+
                 return IsOnlyCharsOrDigitsExist;
             }
 
-            internal static bool isInputLengthValid (string i_InputString)
+            internal static bool IsInputLengthValid(string i_InputString)
             {
-                
                 bool IsInputLengthValid = i_InputString.Length <= k_MaximumInputSize && i_InputString.Length >= k_MinimumInputSize;
                 if (!IsInputLengthValid)
                 {
                     throw new ValueOutOfRangeException(k_MaximumInputSize, k_MinimumInputSize, "Input string length is invalid!");
                 }
+
                 return IsInputLengthValid;
             }
 
             internal static void IsFullLicensePlateValid(string i_LicensePlate, ref bool io_IsLicensePlateValid)
             {
-                io_IsLicensePlateValid = isStringContainOnlyCharsOrDigits(i_LicensePlate) && isInputLengthValid(i_LicensePlate);
+                io_IsLicensePlateValid = IsStringContainOnlyCharsOrDigits(i_LicensePlate) && IsInputLengthValid(i_LicensePlate);
             }
         }
-        Garage m_Garage = new Garage();
+
+        private Garage m_Garage = new Garage();
 
         public void MainMenu()
         {
@@ -80,36 +84,37 @@ namespace Ex03.ConsoleUI
                 userSelection = getUserSelection(UserOptions.MainMenu);
                 switch (userSelection)
                 {
-                    case ("Add a vehicle to the garage"):
+                    case "Add a vehicle to the garage":
                         string LicensePlate = getLicensePlate();
                         addVehicleToGarage(LicensePlate);
                         break;
-                    case ("Show vehicles License-plates"):
+                    case "Show vehicles License-plates":
                         showLicensePlates();
                         break;
-                    case ("Change vehicle status"):
+                    case "Change vehicle status":
                         changeVehicleStatus();
                         break;
-                    case ("Fill the Wheels air-pressure of a vehicle to maximum"):
+                    case "Fill the Wheels air-pressure of a vehicle to maximum":
                         fillAirPressureToMax();
                         break;
-                    case ("Add fuel"):
+                    case "Add fuel":
                         addFuel();
                         break;
-                    case ("Charge battery"):
+                    case "Charge battery":
                         chargeBattery();
                         break;
-                    case ("Show vehicle details"):
+                    case "Show vehicle details":
                         showVehicleDetails();
                         break;
-                    case ("EXIT"):
+                    case "EXIT":
                         Console.WriteLine("GoodBye!");
                         break;
                     default:
                         Console.WriteLine("Input is not valid!");
                         break;
                 }
-            } while (userSelection != "EXIT");
+            }
+            while (userSelection != "EXIT");
         }
 
         private void showVehicleDetails()
@@ -179,16 +184,16 @@ namespace Ex03.ConsoleUI
             string UserSelection = getUserSelection(UserOptions.FuelTypes);
             switch (UserSelection)
             {
-                case ("Soler"):
+                case "Soler":
                     FuelType = eFuelType.Soler;
                     break;
-                case ("Octan98"):
+                case "Octan98":
                     FuelType = eFuelType.Octan98;
                     break;
-                case ("Octan96"):
+                case "Octan96":
                     FuelType = eFuelType.Octan96;
                     break;
-                case ("Octan95"):
+                case "Octan95":
                     FuelType = eFuelType.Octan95;
                     break;
                 default:
@@ -207,7 +212,6 @@ namespace Ex03.ConsoleUI
                 {
                     m_Garage.FillAirPressure(licensePlate);
                     Console.WriteLine("Tiers's air pressure is fixed");
-
                 }
                 catch (Exception ex)
                 {
@@ -227,15 +231,15 @@ namespace Ex03.ConsoleUI
             string UserSelection = getUserSelection(UserOptions.VehicleStatus);
             switch (UserSelection)
             {
-                case ("Change to 'In Repair'"):
+                case "Change to 'In Repair'":
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
                     Console.WriteLine("Status changed to 'In Repair' successfully");
                     break;
-                case ("Change to 'Repaired'"):
+                case "Change to 'Repaired'":
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Repaired);
                     Console.WriteLine("Status changed to 'Repaired' successfully");
                     break;
-                case ("Change to 'Paid'"):
+                case "Change to 'Paid'":
                     m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Paid);
                     Console.WriteLine("Status changed to 'Paid' successfully");
                     break;
@@ -249,16 +253,16 @@ namespace Ex03.ConsoleUI
             string UserSelection = getUserSelection(UserOptions.LicensePlatesFilter);
             switch (UserSelection)
             {
-                case ("Show all License plates"):
+                case "Show all License plates":
                     printStringArray(m_Garage.GetAllLicensePlates());
                     break;
-                case ("Show License plates of vehicles in status 'In Repair'"):
+                case "Show License plates of vehicles in status 'In Repair'":
                     printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.InRepair));
                     break;
-                case ("Show License plates of vehicles in status 'Repaired'"):
+                case "Show License plates of vehicles in status 'Repaired'":
                     printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.Repaired));
                     break;
-                case ("Show License plates of vehicles in status 'Paid'"):
+                case "Show License plates of vehicles in status 'Paid'":
                     printStringArray(m_Garage.GetLicesnePlates(VehicleTicket.eVehicleStatus.Paid));
                     break;
                 default:
@@ -291,10 +295,10 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Owner name:");
                     ownerName = Console.ReadLine();
-                    QualityCheck.isStringContainOnlyChars(ownerName);
+                    QualityCheck.IsStringContainOnlyChars(ownerName);
                     Console.WriteLine("Owner phone number:");
                     ownerPhone = Console.ReadLine();
-                    QualityCheck.isStringContainOnlyDigits(ownerName);
+                    QualityCheck.IsStringContainOnlyDigits(ownerPhone);
                     newVehicle = getNewVehicle(io_LicensePlate);
                     m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
                     Console.WriteLine("Vehicle was added successfully");
@@ -345,17 +349,20 @@ namespace Ex03.ConsoleUI
                     {
                         Console.WriteLine(string.Format("\t{0}.{1}", (i + 1).ToString(), i_Options[i]));
                     }
-                    UserSelection = (int.Parse(Console.ReadLine()) - 1);
+
+                    UserSelection = int.Parse(Console.ReadLine()) - 1;
                     if (UserSelection < 0 || UserSelection >= i_Options.Length)
                     {
                         throw new FormatException("Input string is not valid!");
                     }
-                } while (UserSelection < 0 || UserSelection >= i_Options.Length);
+                }
+                while (UserSelection < 0 || UserSelection >= i_Options.Length);
             }
             else
             {
                 UserSelection = 0;
             }
+
             return i_Options[UserSelection];
         }
 
@@ -368,7 +375,8 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please insert license plate:");
                 LicensePlate = Console.ReadLine();
                 QualityCheck.IsFullLicensePlateValid(LicensePlate, ref IsLicensePlateValid);
-            } while (!IsLicensePlateValid);
+            }
+            while (!IsLicensePlateValid);
 
             return LicensePlate;
         }

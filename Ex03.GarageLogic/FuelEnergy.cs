@@ -23,8 +23,7 @@ namespace Ex03.GarageLogic
             }
             if(i_FuelType != m_FuelType)
             {
-                throw new ArgumentException(string.Format("Wrong fuel type! Fuel Type should be {0}"
-                    ,m_FuelType.ToString()));
+                throw new ArgumentException(string.Format("Wrong fuel type! Fuel Type should be {0}" ,m_FuelType.ToString()));
             }
             m_EnergyLeft += i_EnergyToAdd;
         }
