@@ -10,6 +10,7 @@ namespace Ex03.ConsoleUI
         public class QualityCheck
         {
             internal const int k_MaximumInputSize = 16;
+            internal const int k_MaximumInputPhoneSize = 10;
             internal const int k_MinimumInputSize = 1;
 
             internal static bool IsStringContainOnlyDigits(string i_InputString)
@@ -72,6 +73,22 @@ namespace Ex03.ConsoleUI
             {
                 io_IsLicensePlateValid = IsStringContainOnlyCharsOrDigits(i_LicensePlate) && IsInputLengthValid(i_LicensePlate);
             }
+
+            internal static bool IsInputPhoneLengthValid(string i_InputString)
+            {
+                bool IsInputLengthValid = i_InputString.Length == k_MaximumInputPhoneSize;
+                if (!IsInputLengthValid)
+                {
+                    throw new FormatException("Phone number length is invalid!");
+                }
+
+                return IsInputLengthValid;
+            }
+
+            internal static bool IsPhoneNumberValid(string i_PhoneNumber)
+            {
+                return IsStringContainOnlyDigits(i_PhoneNumber) && IsInputPhoneLengthValid(i_PhoneNumber);
+            }
         }
 
         private Garage m_Garage = new Garage();
@@ -85,8 +102,8 @@ namespace Ex03.ConsoleUI
                 switch (userSelection)
                 {
                     case "Add a vehicle to the garage":
-                        string LicensePlate = getLicensePlate();
-                        addVehicleToGarage(LicensePlate);
+                        string licensePlate = getLicensePlate();
+                        addVehicleToGarage(licensePlate);
                         break;
                     case "Show vehicles License-plates":
                         showLicensePlates();
@@ -119,10 +136,10 @@ namespace Ex03.ConsoleUI
 
         private void showVehicleDetails()
         {
-            string LicensePlate = getLicensePlate();
-            if (m_Garage.IsVehicleExists(LicensePlate))
+            string licensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(licensePlate))
             {
-                Console.WriteLine(m_Garage.GetVehicleDetailsAsString(LicensePlate));
+                Console.WriteLine(m_Garage.GetVehicleDetailsAsString(licensePlate));
             }
             else
             {
@@ -132,14 +149,14 @@ namespace Ex03.ConsoleUI
 
         private void chargeBattery()
         {
-            string LicensePlate = getLicensePlate();
-            if (m_Garage.IsVehicleExists(LicensePlate))
+            string licensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(licensePlate))
             {
                 Console.WriteLine("Amount of battery to charge:");
-                float AmountOfChargeBatteryToDo = float.Parse(Console.ReadLine());
+                float amountOfChargeBatteryToDo = float.Parse(Console.ReadLine());
                 try
                 {
-                    m_Garage.ChargeBattery(LicensePlate, AmountOfChargeBatteryToDo);
+                    m_Garage.ChargeBattery(licensePlate, amountOfChargeBatteryToDo);
                     Console.WriteLine("Battery was charged successfully!");
                 }
                 catch
@@ -155,15 +172,15 @@ namespace Ex03.ConsoleUI
 
         private void addFuel()
         {
-            string LicensePlate = getLicensePlate();
-            if (m_Garage.IsVehicleExists(LicensePlate))
+            string licensePlate = getLicensePlate();
+            if (m_Garage.IsVehicleExists(licensePlate))
             {
-                eFuelType FuelType = getFuelType();
+                eFuelType fuelType = getFuelType();
                 Console.WriteLine("Amount of fuel to add:");
-                float AmountOfFuelToAdd = float.Parse(Console.ReadLine());
+                float amountOfFuelToAdd = float.Parse(Console.ReadLine());
                 try
                 {
-                    m_Garage.AddFuelToVehicle(LicensePlate, FuelType, AmountOfFuelToAdd);
+                    m_Garage.AddFuelToVehicle(licensePlate, fuelType, amountOfFuelToAdd);
                     Console.WriteLine("Fuel was added successfully!");
                 }
                 catch (Exception ex)
@@ -180,27 +197,27 @@ namespace Ex03.ConsoleUI
 
         private eFuelType getFuelType()
         {
-            eFuelType FuelType;
-            string UserSelection = getUserSelection(UserOptions.FuelTypes);
-            switch (UserSelection)
+            eFuelType fuelType;
+            string userSelection = getUserSelection(UserOptions.FuelTypes);
+            switch (userSelection)
             {
                 case "Soler":
-                    FuelType = eFuelType.Soler;
+                    fuelType = eFuelType.Soler;
                     break;
                 case "Octan98":
-                    FuelType = eFuelType.Octan98;
+                    fuelType = eFuelType.Octan98;
                     break;
                 case "Octan96":
-                    FuelType = eFuelType.Octan96;
+                    fuelType = eFuelType.Octan96;
                     break;
                 case "Octan95":
-                    FuelType = eFuelType.Octan95;
+                    fuelType = eFuelType.Octan95;
                     break;
                 default:
                     throw new FormatException("Fuel type is not supported");
             }
 
-            return FuelType;
+            return fuelType;
         }
 
         private void fillAirPressureToMax()
@@ -227,20 +244,20 @@ namespace Ex03.ConsoleUI
 
         private void changeVehicleStatus()
         {
-            string LicensePlate = getLicensePlate();
-            string UserSelection = getUserSelection(UserOptions.VehicleStatus);
-            switch (UserSelection)
+            string licensePlate = getLicensePlate();
+            string userSelection = getUserSelection(UserOptions.VehicleStatus);
+            switch (userSelection)
             {
                 case "Change to 'In Repair'":
-                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.InRepair);
+                    m_Garage.ChangeStatus(licensePlate, VehicleTicket.eVehicleStatus.InRepair);
                     Console.WriteLine("Status changed to 'In Repair' successfully");
                     break;
                 case "Change to 'Repaired'":
-                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Repaired);
+                    m_Garage.ChangeStatus(licensePlate, VehicleTicket.eVehicleStatus.Repaired);
                     Console.WriteLine("Status changed to 'Repaired' successfully");
                     break;
                 case "Change to 'Paid'":
-                    m_Garage.ChangeStatus(LicensePlate, VehicleTicket.eVehicleStatus.Paid);
+                    m_Garage.ChangeStatus(licensePlate, VehicleTicket.eVehicleStatus.Paid);
                     Console.WriteLine("Status changed to 'Paid' successfully");
                     break;
                 default:
@@ -250,8 +267,8 @@ namespace Ex03.ConsoleUI
 
         private void showLicensePlates()
         {
-            string UserSelection = getUserSelection(UserOptions.LicensePlatesFilter);
-            switch (UserSelection)
+            string userSelection = getUserSelection(UserOptions.LicensePlatesFilter);
+            switch (userSelection)
             {
                 case "Show all License plates":
                     printStringArray(m_Garage.GetAllLicensePlates());
@@ -298,7 +315,7 @@ namespace Ex03.ConsoleUI
                     QualityCheck.IsStringContainOnlyChars(ownerName);
                     Console.WriteLine("Owner phone number:");
                     ownerPhone = Console.ReadLine();
-                    QualityCheck.IsStringContainOnlyDigits(ownerPhone);
+                    QualityCheck.IsPhoneNumberValid(ownerPhone);
                     newVehicle = getNewVehicle(io_LicensePlate);
                     m_Garage.AddVehicleTicket(ownerName, ownerPhone, newVehicle);
                     Console.WriteLine("Vehicle was added successfully");
@@ -339,7 +356,7 @@ namespace Ex03.ConsoleUI
 
         private string getUserSelection(string[] i_Options)
         {
-            int UserSelection;
+            int userSelection;
             if (i_Options.Length > 1)
             {
                 do
@@ -350,35 +367,35 @@ namespace Ex03.ConsoleUI
                         Console.WriteLine(string.Format("\t{0}.{1}", (i + 1).ToString(), i_Options[i]));
                     }
 
-                    UserSelection = int.Parse(Console.ReadLine()) - 1;
-                    if (UserSelection < 0 || UserSelection >= i_Options.Length)
+                    userSelection = int.Parse(Console.ReadLine()) - 1;
+                    if (userSelection < 0 || userSelection >= i_Options.Length)
                     {
                         throw new FormatException("Input string is not valid!");
                     }
                 }
-                while (UserSelection < 0 || UserSelection >= i_Options.Length);
+                while (userSelection < 0 || userSelection >= i_Options.Length);
             }
             else
             {
-                UserSelection = 0;
+                userSelection = 0;
             }
 
-            return i_Options[UserSelection];
+            return i_Options[userSelection];
         }
 
         private string getLicensePlate()
         {
-            bool IsLicensePlateValid = false;
-            string LicensePlate;
+            bool isLicensePlateValid = false;
+            string licensePlate;
             do
             {
                 Console.WriteLine("Please insert license plate:");
-                LicensePlate = Console.ReadLine();
-                QualityCheck.IsFullLicensePlateValid(LicensePlate, ref IsLicensePlateValid);
+                licensePlate = Console.ReadLine();
+                QualityCheck.IsFullLicensePlateValid(licensePlate, ref isLicensePlateValid);
             }
-            while (!IsLicensePlateValid);
+            while (!isLicensePlateValid);
 
-            return LicensePlate;
+            return licensePlate;
         }
     }
 }

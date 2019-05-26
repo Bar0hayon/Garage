@@ -17,6 +17,7 @@ namespace Ex03.GarageLogic
             {
                 throw new ValueOutOfRangeException(m_MaxEnergy, m_MinEnergy);
             }
+
             m_EnergyLeft += i_EnergyToAdd;
         }
     }

@@ -6,7 +6,13 @@ namespace Ex03.GarageLogic
 {
     public class VehicleTicket
     {
-        public enum eVehicleStatus { Paid, Repaired, InRepair}
+        public enum eVehicleStatus
+        {
+            Paid,
+            Repaired,
+            InRepair
+        }
+
         private string m_OwnerName;
         private string m_OwnerPhone;
         private Vehicle m_Vehicle;
@@ -18,6 +24,7 @@ namespace Ex03.GarageLogic
             {
                 return m_Status;
             }
+
             set
             {
                 m_Status = value;
@@ -47,8 +54,12 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format("Owner Name: {0}\nOwner phone: {1}\nStatus: {2}\n{3}",
-                m_OwnerName, m_OwnerPhone, m_Status.ToString(), m_Vehicle.ToString());
+            return string.Format(
+                                "Owner Name: {0}\nOwner phone: {1}\nStatus: {2}\n{3}",
+                                m_OwnerName, 
+                                m_OwnerPhone, 
+                                m_Status.ToString(), 
+                                m_Vehicle.ToString());
         }
     }
 }

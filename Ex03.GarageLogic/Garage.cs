@@ -60,9 +60,8 @@ namespace Ex03.GarageLogic
 
         public void FillAirPressure(string i_LicensePlate)
         {
-
             Vehicle vehicleToMaxItTiersAirPressure = GetVehicleByLicensePlateNumber(i_LicensePlate);
-            Wheel[] wheelsToFillItAirPressure = vehicleToMaxItTiersAirPressure.wheels;
+            Wheel[] wheelsToFillItAirPressure = vehicleToMaxItTiersAirPressure.Wheels;
             try
             {
                 fillAirPressureToMax(wheelsToFillItAirPressure);
@@ -82,7 +81,6 @@ namespace Ex03.GarageLogic
         {
             if (m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource is ElectricEnergy)
             {
-
                 ElectricEnergy CarBattery = m_VehicleTickets[i_LicensePlate].Vehicle.EnergySource as ElectricEnergy;
                 try
                 {

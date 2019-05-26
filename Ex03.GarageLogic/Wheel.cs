@@ -19,8 +19,11 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public Wheel(string i_Manufacturer, float i_MaxAirPressure, float i_MinAirPressure = 0,
-            float i_CurrentAirPressure = 0)
+        public Wheel(
+                    string i_Manufacturer, 
+                    float i_MaxAirPressure, 
+                    float i_MinAirPressure = 0,
+                    float i_CurrentAirPressure = 0)
         {
             m_Manufacturer = i_Manufacturer;
             m_MaxAirPressure = i_MaxAirPressure;
@@ -41,15 +44,19 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format("Wheels Manufacturer: {0}\nWheels Air Pressure: {1}",
-                m_Manufacturer, m_AirPressure);
+            return string.Format(
+                                "Wheels Manufacturer: {0}\nWheels Air Pressure: {1}",
+                                m_Manufacturer, 
+                                m_AirPressure);
         }
+
         public float getAirPressure
         {
             get
             {
                 return m_AirPressure;
             }
+
             set
             {
                 m_AirPressure = value;
